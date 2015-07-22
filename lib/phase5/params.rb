@@ -13,6 +13,7 @@ module Phase5
     # passed in as a hash to `Params.new` as below:
     def initialize(req, route_params = {})
       @params = {}
+      parse_www_encoded_form(req.query_string) unless req.query_string.nil?
     end
 
     def [](key)
@@ -39,7 +40,7 @@ module Phase5
     def parse_www_encoded_form(www_encoded_form)
       ary = URI.decode_www_form(www_encoded_form)
       ary.each do |sub_ary|
-        key = sub_ary[0]
+        key = sub_ary[0].to_s
         value = sub_ary[1]
         @params[key] = value
       end
