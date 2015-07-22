@@ -11,13 +11,19 @@ module Phase5
     #
     # You haven't done routing yet; but assume route params will be
     # passed in as a hash to `Params.new` as below:
+    # In here route_params' keys can be either symbols or strings, getter
+    # method will make sure that we can get both.
     def initialize(req, route_params = {})
-      @params = {}
+      @params = route_params
       parse_www_encoded_form(req.query_string) unless req.query_string.nil?
+      parse_www_encoded_form(req.body) unless req.body.nil?
     end
 
+    # Doesn't matter how the keys are stored, you should be able to get
+    # them whether they are a string or a symbol.
     def [](key)
-      @params[key.to_s]
+      @params[key.to_s] || @params[key.to_sym]
+      # params[:id] => params['id']
     end
 
     # this will be useful if we want to `puts params` in the server log
@@ -37,18 +43,28 @@ module Phase5
     # Example in pry
     # ary = URI.decode_www_form("a=1&a=2&b=3")
     # => [["a", "1"], ["a", "2"], ["b", "3"]]
+    # query string = [[[user,fname], Jon], [[user, lname], Snow]]
     def parse_www_encoded_form(www_encoded_form)
       ary = URI.decode_www_form(www_encoded_form)
-      ary.each do |sub_ary|
-        key = sub_ary[0].to_s
-        value = sub_ary[1]
-        @params[key] = value
+      ary.each do |pair|
+        current = @params
+        keys = parse_key(pair.first) # make an array of the keys
+        keys.each do |key|
+          # ||= to make sure we don't override previous user keys
+          if key == keys.last
+            current[key] = pair.last
+          else
+            current[key] ||= {}
+            current = current[key]
+          end
+        end
       end
     end
 
     # this should return an array
     # user[address][street] should return ['user', 'address', 'street']
     def parse_key(key)
+      key.split(/\]\[|\[|\]/)
     end
   end
 end

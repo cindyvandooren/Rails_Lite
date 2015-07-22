@@ -31,7 +31,7 @@ module Phase3
       # => #<Binding:0x007ffabb9481e0>
       # [5] pry(main)> b2.eval("foo")
       # => "bar"
-      # [6] pry(main)> 
+      # [6] pry(main)>
       render_content(content, "text/html")
     end
   end

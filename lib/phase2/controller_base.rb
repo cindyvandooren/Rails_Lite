@@ -1,10 +1,11 @@
+require 'byebug'
+
 module Phase2
   class ControllerBase
-    attr_reader :req, :res
-    attr_accessor :already_built_response
+    attr_accessor :already_built_response, :req, :res
 
     # Setup the controller
-    def initialize(req, res)
+    def initialize(req, res, route_params = {})
       @req = req
       @res = res
       @already_built_response = false
