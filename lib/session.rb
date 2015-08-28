@@ -3,9 +3,9 @@ require 'webrick'
 
 class Session
   # This class will allow us to store session_tokens and other cookies
-  # Find the cookie for this app and deserialize it into a has
   attr_accessor :session_content
 
+  # Find the cookie for this app and deserialize it into a hash
   def initialize(req)
     cookie = req.cookies.find { |c| c.name == "_rails_lite_app" }
     @session_content = cookie ? JSON.parse(cookie.value) : {}

@@ -1,5 +1,6 @@
 require 'active_support'
 require 'active_support/core_ext'
+require 'active_support/inflector'
 require 'erb'
 require_relative 'session'
 require_relative 'params'
@@ -28,7 +29,7 @@ class ControllerBase
       @res["Location"] = url
       @res.status = 302
       @already_built_response = true
-      session.store_session(res)
+      session.store_session(@res)
     end
   end
 
@@ -40,7 +41,8 @@ class ControllerBase
       @res.content_type = content_type
       @res.body = content
       @already_built_response = true
-      session.store_session(res)
+      session.store_session(@res)
+      nil
     end
   end
 
