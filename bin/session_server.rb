@@ -1,9 +1,11 @@
 require 'webrick'
-require_relative '../lib/phase3/controller_base'
+require_relative '../lib/controller_base'
 
-class MyController < Phase3::ControllerBase
+class MyController < ControllerBase
   def go
-    render :show
+    session["count"] ||= 0
+    session["count"] += 1
+    render :counting_show
   end
 end
 
