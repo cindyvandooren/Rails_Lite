@@ -23,7 +23,13 @@ Rails Lite can be used as a replacement for Rails when building small projects. 
 - ruby bin/template_server.rb
 
 ## Some cool code snippets
+
+Creating, starting and stopping a basic WEBrick server
+
 ![Snippet1]
 [Snippet1]: code_snippet1.png
+
+
+Parsing deeply nested hashes to handle query strings
 ![Snippet2]
 [Snippet2]: code_snippet2.png
