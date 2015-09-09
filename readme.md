@@ -1,5 +1,5 @@
 # Rails Lite
-Welcome to Rails Lite. This project shows some of the behind the scenes magic of Rails.
+Welcome to Rails Lite. In this project I built Rails from scratch. It shows some of the behind the scenes magic of Rails.
 
 ## Highlights
 - Parses deeply nested hashes to handle query strings

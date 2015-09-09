@@ -1,6 +1,6 @@
 require 'webrick'
 
-server = WEBrick::HTTPServer.new(:Port => 3000)
+server = WEBrick::HTTPServer.new(:Port => 80)
 
 server.mount_proc("/") do |request, response|
   response.content_type = "text/text"
